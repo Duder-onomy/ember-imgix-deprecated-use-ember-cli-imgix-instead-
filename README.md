@@ -80,6 +80,14 @@ This element also exposes an `onLoad` action which you can hook into to know whe
 }}
 ```
 
+## Imgix Core JS
+
+Imgix core js is available to you shimmed as:
+
+```javascript
+import ImgixCoreJs from 'imgix-core-js';
+```
+
 ## Running a test app
 
 To see this in action with some stock photos, clone this repo and then run `ember serve`
