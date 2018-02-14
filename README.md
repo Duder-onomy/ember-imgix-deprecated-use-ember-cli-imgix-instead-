@@ -2,7 +2,7 @@
 
 <!-- [![Build Status](https://travis-ci.org/imgix/ember-cli-imgix.png?branch=master)](https://travis-ci.org/imgix/ember-cli-imgix) -->
 
-This is a rebuild of [ember-cli-imdix](https://github.com/imgix/ember-cli-imgix).
+This is a rebuild of [ember-cli-imgix](https://github.com/imgix/ember-cli-imgix).
 I became frustrated with lack of activity and the source code was odd.
 This is currently used in a large ember app. If your going to use it, please let me know if you find anything off.
 
