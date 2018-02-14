@@ -1,5 +1,7 @@
 # ember-imgix
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Duder-onomy/ember-imgix.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/Duder-onomy/ember-imgix.svg?branch=master)](https://travis-ci.org/Duder-onomy/ember-imgix)
 
 This is a rebuild of [ember-cli-imgix](https://github.com/imgix/ember-cli-imgix).
