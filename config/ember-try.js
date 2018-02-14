@@ -1,5 +1,7 @@
 /* eslint-env node */
 module.exports = {
+  useYarn: true,
+  useVersionCompatibility: true,
   scenarios: [
     {
       name: 'ember-lts-2.8',
