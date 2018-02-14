@@ -6,6 +6,7 @@ import { tryInvoke } from '@ember/utils';
 import config from 'ember-get-config';
 import EmberError from '@ember/error';
 import { inject as service } from '@ember/service';
+import ImgixClient from 'imgix-core-js';
 
 export default Component.extend(ResizeAware, {
   layout: null,
@@ -57,7 +58,7 @@ export default Component.extend(ResizeAware, {
       throw new EmberError('Could not find a source in the application configuration. Please configure APP.imgix.source in config/environment.js. See https://github.com/imgix/ember-imgix for more information.');
     }
 
-    return new window.ImgixClient({
+    return new ImgixClient({
       host: config.APP.imgix.source,
     });
   }),

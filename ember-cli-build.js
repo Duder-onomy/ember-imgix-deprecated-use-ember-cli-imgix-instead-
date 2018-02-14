@@ -8,8 +8,5 @@ module.exports = function(defaults) {
 
   });
 
-  app.import('node_modules/js-base64/base64.js');
-  app.import('node_modules/imgix-core-js/dist/imgix-core-js.js');
-
   return app.toTree();
 };
