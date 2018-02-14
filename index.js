@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-imgix'
+  name: 'ember-imgix',
 };
