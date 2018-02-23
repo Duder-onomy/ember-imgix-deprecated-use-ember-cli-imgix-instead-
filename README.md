@@ -4,11 +4,9 @@
 
 [![Build Status](https://travis-ci.org/Duder-onomy/ember-imgix.svg?branch=master)](https://travis-ci.org/Duder-onomy/ember-imgix)
 
-This is a rebuild of [ember-cli-imgix](https://github.com/imgix/ember-cli-imgix).
-I became frustrated with lack of activity and the source code was odd, so I re-wrote it.
-This is currently used in a large ember app. If your going to use it, please let me know if you find anything off.
-
 An Ember addon for easily adding responsive imagery via [imgix](https://www.imgix.com) to your application.
+
+Works with FastBoot
 
 **Note:** Front-end imgix libraries and framework integrations will not work with imgix Web Proxy Sources. They will only work with imgix Web Folder or S3 Sources.
 
@@ -88,7 +86,7 @@ Imgix core js is available to you shimmed as:
 import ImgixCoreJs from 'imgix-core-js';
 ```
 
-## Running a test app
+## Running Tests
 
 To see this in action with some stock photos, clone this repo and then run `ember serve`
 
@@ -107,3 +105,5 @@ Pretty simple:
 ```base
 ember test
 ```
+
+This is heavily inspired by [ember-cli-imgix](https://github.com/imgix/ember-cli-imgix), except I have re-written all the pertinent bits.
