@@ -23,6 +23,8 @@ export default Component.extend(ResizeAware, {
   onLoad: null,
   auto: null,
   alt: null,
+  width: null, // passed in
+  height: null, // passed in
 
   _width: null,
   _height: null,
@@ -40,7 +42,9 @@ export default Component.extend(ResizeAware, {
   didInsertElement(...args) {
     this._handleImageLoad = this._handleImageLoad.bind(this);
     this.element.addEventListener('load', this._handleImageLoad);
-    this.debouncedDidResize(get(this, '_width') || this.element.parentElement.clientWidth, get(this, '_height') || this.element.parentElement.clientHeight);
+    this.debouncedDidResize(
+      get(this, 'width') || get(this, '_width') || this.element.clientWidth || this.element.parentElement.clientWidth,
+      get(this, 'height') || get(this, '_height') || this.element.clientHeight || this.element.parentElement.clientHeight);
     this._super(...args);
   },
 
