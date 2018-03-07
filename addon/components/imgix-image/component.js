@@ -1,19 +1,20 @@
 import Component from '@ember/component';
 import { computed, get, set } from '@ember/object';
-import ResizeAware from 'ember-resize/mixins/resize-aware';
+import ResizeAware from 'ember-resize-aware/mixins/resize-aware';
 import { merge } from '@ember/polyfills';
 import { tryInvoke } from '@ember/utils';
 import config from 'ember-get-config';
 import EmberError from '@ember/error';
-import { inject as service } from '@ember/service';
 import ImgixClient from 'imgix-core-js';
+import { next } from '@ember/runloop';
+import { inject as service } from '@ember/service';
 
 export default Component.extend(ResizeAware, {
   layout: null,
   tagName: 'img',
   attributeBindings: ['src', 'crossorigin', 'style', 'alt'],
 
-  resizeService: service('resize'),
+  unifiedEventHandler: service(),
 
   aspectRatio: null,
   path: null,
@@ -29,7 +30,9 @@ export default Component.extend(ResizeAware, {
   _width: null,
   _height: null,
 
-  debouncedDidResize(width, height) {
+  debounceRate: 400,
+
+  didResize(width, height) {
     const newWidth = Math.ceil(get(this, '_pathAsUrl.searchParams').get('width') || width / get(this, 'pixelStep')) * get(this, 'pixelStep');
     const newHeight = Math.floor(get(this, 'aspectRatio') ? newWidth / get(this, 'aspectRatio') : get(this, '_pathAsUrl.searchParams').get('height') || height);
     const newDpr = window.devicePixelRatio || 1;
@@ -41,15 +44,15 @@ export default Component.extend(ResizeAware, {
 
   didInsertElement(...args) {
     this._handleImageLoad = this._handleImageLoad.bind(this);
-    this.element.addEventListener('load', this._handleImageLoad);
-    this.debouncedDidResize(
+    get(this, 'unifiedEventHandler').register(`#${this.elementId}`, 'load', this._handleImageLoad);
+    this.didResize(
       get(this, 'width') || get(this, '_width') || this.element.clientWidth || this.element.parentElement.clientWidth,
       get(this, 'height') || get(this, '_height') || this.element.clientHeight || this.element.parentElement.clientHeight);
     this._super(...args);
   },
 
   willDestroyElement(...args) {
-    this.element.removeEventListener('load', this._handleImageLoad);
+    get(this, 'unifiedEventHandler').unregister(`#${this.elementId}`, 'load', this._handleImageLoad);
     this._super(...args);
   },
 
@@ -94,7 +97,8 @@ export default Component.extend(ResizeAware, {
   }),
 
   _handleImageLoad(event) {
-    tryInvoke(this, 'onLoad', [event.originalEvent]);
+    get(this, 'unifiedEventHandler').unregister(`#${this.elementId}`, 'load', this._handleImageLoad);
+    next(this, () => tryInvoke(this, 'onLoad', [event.originalEvent]));
   },
 
   _debugParams: computed('_width', '_height', '_dpr', function () {

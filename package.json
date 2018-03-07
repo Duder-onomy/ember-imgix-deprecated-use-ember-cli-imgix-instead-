@@ -1,6 +1,6 @@
 {
   "name": "ember-imgix",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
@@ -23,7 +23,8 @@
     "broccoli-merge-trees": "^2.0.0",
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
-    "ember-resize": "mike-north/ember-resize#master",
+    "ember-resize-aware": "1.0.0",
+    "ember-singularity": "^1.2.0",
     "fastboot-transform": "^0.1.2",
     "imgix-core-js": "1.1.1",
     "js-base64": "2.4.3"

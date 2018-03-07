@@ -5,6 +5,8 @@
 [![Build Status](https://travis-ci.org/Duder-onomy/ember-imgix.svg?branch=master)](https://travis-ci.org/Duder-onomy/ember-imgix)
 
 An Ember addon for easily adding responsive imagery via [imgix](https://www.imgix.com) to your application.
+As your components resize, we will fetch new optimized imgix images.
+Uses [ember-singularity](https://github.com/trentmwillis/ember-singularity) under the hood for efficient and massively gangster event handling.
 
 Works with FastBoot
 
