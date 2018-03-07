@@ -55,7 +55,7 @@ The `src` attribute will have [imgix URL API parameters](https://www.imgix.com/d
 
 Note! This element works by calculating the width/height from its parent. If its parent has no width/height, then this component will do nothing.
 
-You can pass through most of the params that imgix urls accept.
+You can pass through most of the [params that imgix urls accept](https://docs.imgix.com/apis/url).
 
 Some of the defaults are:
 
@@ -63,10 +63,12 @@ Some of the defaults are:
 aspectRatio: null,
 path: null,
 crop: 'faces',
-fit: 'crop',
-pixelStep: 10,
+fit: 'crop', // 
+pixelStep: 10, // round to the nearest pixelStep
 auto: null,
-alt: null,
+alt: null, // Alt text of the image
+width: null, // override if you want to hardcode a width into the image
+height: null, // override if you want to hardcode a height into the image
 ```
 
 This element also exposes an `onLoad` action which you can hook into to know when the image has loaded:
