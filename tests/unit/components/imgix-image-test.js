@@ -6,7 +6,7 @@ moduleForComponent('imgix-image', 'Unit | Component | imgix image', {
   unit: true,
 
   needs: [
-    'service:resize',
+    'service:unifiedEventHandler',
   ],
 });
 
@@ -18,7 +18,7 @@ test('it sets the source correctly', function(assert) {
     _dpr: 1,
   });
 
-  component.debouncedDidResize(400, 300);
+  component.didResize(400, 300);
 
   assert.ok(component.get('src'));
 
@@ -53,7 +53,7 @@ test('it respects the pixel step', function(assert) {
     pixelStep: 10,
   });
 
-  component.debouncedDidResize(405, 300);
+  component.didResize(405, 300);
 
   const url = new window.URL(component.get('src'));
 
