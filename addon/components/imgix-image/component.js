@@ -6,15 +6,12 @@ import { tryInvoke } from '@ember/utils';
 import config from 'ember-get-config';
 import EmberError from '@ember/error';
 import ImgixClient from 'imgix-core-js';
-import { next } from '@ember/runloop';
-import { inject as service } from '@ember/service';
+import { debounce } from '@ember/runloop';
 
 export default Component.extend(ResizeAware, {
   layout: null,
   tagName: 'img',
   attributeBindings: ['src', 'crossorigin', 'style', 'alt'],
-
-  unifiedEventHandler: service(),
 
   aspectRatio: null,
   path: null,
@@ -45,7 +42,7 @@ export default Component.extend(ResizeAware, {
   didInsertElement(...args) {
     if (get(this, 'onLoad')) {
       this._handleImageLoad = this._handleImageLoad.bind(this);
-      get(this, 'unifiedEventHandler').register(`#${this.elementId}`, 'load', this._handleImageLoad);
+      this.element.addEventListener('load', this._handleImageLoad);
     }
 
     this.didResize(
@@ -55,7 +52,7 @@ export default Component.extend(ResizeAware, {
   },
 
   willDestroyElement(...args) {
-    get(this, 'unifiedEventHandler').unregister(`#${this.elementId}`, 'load', this._handleImageLoad);
+    this.element.removeEventListener('load', this._handleImageLoad);
     this._super(...args);
   },
 
@@ -100,7 +97,7 @@ export default Component.extend(ResizeAware, {
   }),
 
   _handleImageLoad(event) {
-    next(this, () => tryInvoke(this, 'onLoad', [event.originalEvent]));
+    debounce(this, () => tryInvoke(this, 'onLoad', [event.originalEvent]), 500);
   },
 
   _debugParams: computed('_width', '_height', '_dpr', function () {
