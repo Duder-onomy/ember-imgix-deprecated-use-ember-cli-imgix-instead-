@@ -43,8 +43,11 @@ export default Component.extend(ResizeAware, {
   },
 
   didInsertElement(...args) {
-    this._handleImageLoad = this._handleImageLoad.bind(this);
-    get(this, 'unifiedEventHandler').register(`#${this.elementId}`, 'load', this._handleImageLoad);
+    if (get(this, 'onLoad')) {
+      this._handleImageLoad = this._handleImageLoad.bind(this);
+      get(this, 'unifiedEventHandler').register(`#${this.elementId}`, 'load', this._handleImageLoad);
+    }
+
     this.didResize(
       get(this, 'width') || get(this, '_width') || this.element.clientWidth || this.element.parentElement.clientWidth,
       get(this, 'height') || get(this, '_height') || this.element.clientHeight || this.element.parentElement.clientHeight);
@@ -97,7 +100,6 @@ export default Component.extend(ResizeAware, {
   }),
 
   _handleImageLoad(event) {
-    get(this, 'unifiedEventHandler').unregister(`#${this.elementId}`, 'load', this._handleImageLoad);
     next(this, () => tryInvoke(this, 'onLoad', [event.originalEvent]));
   },
 

@@ -25,7 +25,6 @@
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
     "ember-resize-aware": "1.0.1",
-    "ember-singularity": "^1.2.0",
     "fastboot-transform": "^0.1.2",
     "imgix-core-js": "1.1.1",
     "js-base64": "2.4.3"
