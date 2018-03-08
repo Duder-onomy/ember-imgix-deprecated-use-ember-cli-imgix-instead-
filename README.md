@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.org/Duder-onomy/ember-imgix.svg?branch=master)](https://travis-ci.org/Duder-onomy/ember-imgix)
 
+[![npm version](https://badge.fury.io/js/ember-imgix.svg)](https://badge.fury.io/js/ember-imgix)
+
 [DEMO](https://duder-onomy.github.io/ember-imgix/)
 
 An Ember addon for easily adding responsive imagery via [imgix](https://www.imgix.com) to your application.
