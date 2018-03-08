@@ -24,7 +24,7 @@
     "broccoli-merge-trees": "^2.0.0",
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
-    "ember-resize-aware": "1.0.1",
+    "ember-resize-aware": "Duder-onomy/ember-resize-aware#ember-singularity-with-soft-unregister",
     "fastboot-transform": "^0.1.2",
     "imgix-core-js": "1.1.1",
     "js-base64": "2.4.3"
