@@ -2174,9 +2174,9 @@ ember-qunit@^3.3.1:
     ember-cli-test-loader "^2.2.0"
     qunit "^2.5.0"
 
-ember-resize-aware@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/ember-resize-aware/-/ember-resize-aware-1.0.0.tgz#e30ea120da6a5ae2a820ce1e504d301faff4cb2e"
+ember-resize-aware@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ember-resize-aware/-/ember-resize-aware-1.0.1.tgz#74b9d1252e3c392ade2f021b7f53ab69dbb56a09"
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-singularity "^1.2.0"
