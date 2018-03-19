@@ -16,7 +16,8 @@
     "build": "ember build",
     "start": "ember server",
     "test": "ember try:each",
-    "test:all": "ember try:testall"
+    "test:all": "ember try:testall",
+    "gh-pages": "ember build && ember github-pages:commit --message \"Deploy gh-pages from commit $(git rev-parse HEAD)\" && git push origin gh-pages:gh-pages"
   },
   "dependencies": {
     "broccoli-funnel": "^2.0.1",
