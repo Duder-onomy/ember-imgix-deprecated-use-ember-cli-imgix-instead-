@@ -11,35 +11,42 @@ import { debounce } from '@ember/runloop';
 export default Component.extend(ResizeAware, {
   layout: null,
   tagName: 'img',
-  attributeBindings: ['src', 'crossorigin', 'style', 'alt'],
+  attributeBindings: ['src', 'crossorigin', 'alt'],
 
+  path: null, // The path to your image
   aspectRatio: null,
-  path: null,
   crop: 'faces',
   fit: 'crop',
-  pixelStep: 10,
+  pixelStep: 1,
   onLoad: null,
-  auto: null,
-  alt: null,
+  crossorigin: 'anonymous',
+  alt: '', // image alt
+  options: {}, // arbitrary imgix options
+
   width: null, // passed in
   height: null, // passed in
 
   _width: null,
   _height: null,
+  _dpr: null,
 
   debounceRate: 400,
 
   didResize(width, height) {
-    const newWidth = Math.ceil(get(this, '_pathAsUrl.searchParams').get('width') || width / get(this, 'pixelStep')) * get(this, 'pixelStep');
-    const newHeight = Math.floor(get(this, 'aspectRatio') ? newWidth / get(this, 'aspectRatio') : get(this, '_pathAsUrl.searchParams').get('height') || height);
-    const newDpr = window.devicePixelRatio || 1;
+    if (get(this, 'path')) {
+      const newWidth = Math.ceil(get(this, '_pathAsUrl.searchParams').get('w') || width / get(this, 'pixelStep')) * get(this, 'pixelStep');
+      const newHeight = Math.floor(get(this, 'aspectRatio') ? newWidth / get(this, 'aspectRatio') : get(this, '_pathAsUrl.searchParams').get('h') || height);
+      const newDpr = window.devicePixelRatio || 1;
 
-    set(this, '_width', newWidth);
-    set(this, '_height', newHeight);
-    set(this, '_dpr', newDpr);
+      set(this, '_width', newWidth);
+      set(this, '_height', newHeight);
+      set(this, '_dpr', newDpr);
+    }
   },
 
   didInsertElement(...args) {
+    this._super(...args);
+
     if (get(this, 'onLoad')) {
       this._handleImageLoad = this._handleImageLoad.bind(this);
       this.element.addEventListener('load', this._handleImageLoad);
@@ -48,15 +55,26 @@ export default Component.extend(ResizeAware, {
     this.didResize(
       get(this, 'width') || get(this, '_width') || this.element.clientWidth || this.element.parentElement.clientWidth,
       get(this, 'height') || get(this, '_height') || this.element.clientHeight || this.element.parentElement.clientHeight);
+  },
+
+  didUpdateAttrs(...args) {
     this._super(...args);
+
+    this.didResize(
+      get(this, 'width') || get(this, '_width') || this.element.clientWidth || this.element.parentElement.clientWidth,
+      get(this, 'height') || get(this, '_height') || this.element.clientHeight || this.element.parentElement.clientHeight);
   },
 
   willDestroyElement(...args) {
-    this.element.removeEventListener('load', this._handleImageLoad);
+    if (get(this, 'onLoad') && typeof FastBoot === 'undefined') {
+      this.element.removeEventListener('load', this._handleImageLoad);
+    }
+
     this._super(...args);
   },
 
   _pathAsUrl: computed('path', function() {
+    if (!get(this, 'path')) { return false; }
     return new window.URL(get(this, 'path'), `https://${config.APP.imgix.source}`);
   }),
 
@@ -70,10 +88,11 @@ export default Component.extend(ResizeAware, {
     });
   }),
 
-  src: computed('_pathAsUrl', '_width', '_height', '_dpr', 'crop', 'fit', function () {
+  src: computed('path', '_pathAsUrl', '_width', '_height', '_dpr', 'crop', 'fit', function () {
     if (!get(this, '_width')) { return; }
+    if (!get(this, 'path')) { return; }
 
-    let options = {
+    let theseOptions = {
       crop: get(this, 'crop'),
       fit: get(this, 'fit'),
       w: get(this, '_width'),
@@ -81,23 +100,24 @@ export default Component.extend(ResizeAware, {
       dpr: get(this, '_dpr'),
     };
 
-    if (this.get('auto')) {
-      merge(options, { auto: this.get('auto') });
-    }
+    merge(theseOptions, get(this, 'options'));
 
     for (let param of get(this, '_pathAsUrl.searchParams')) {
-      set(options, param[0], param[1]);
+      set(theseOptions, param[0], param[1]);
     }
 
     if (get(config, 'APP.imgix.debug')) {
-      merge(options, get(this, '_debugParams'));
+      merge(theseOptions, get(this, '_debugParams'));
     }
 
-    return get(this, '_client').buildURL(get(this, '_pathAsUrl.pathname'), options);
+    // For some reason using attributeBindings to sync with this computed property is throwing massive errors
+    // in fastboot / engine land.
+    // this.element.src = get(this, '_client').buildURL(get(this, '_pathAsUrl.pathname'), theseOptions);
+    return get(this, '_client').buildURL(get(this, '_pathAsUrl.pathname'), theseOptions);
   }),
 
   _handleImageLoad(event) {
-    debounce(this, () => tryInvoke(this, 'onLoad', [event.originalEvent]), 500);
+    debounce(this, () => tryInvoke(this, 'onLoad', [event]), 500);
   },
 
   _debugParams: computed('_width', '_height', '_dpr', function () {
@@ -109,7 +129,6 @@ export default Component.extend(ResizeAware, {
       txtclr: 'ffffff',
       txtpad: 20,
       txtfit: 'max',
-      exp: -2
     };
   }),
 });

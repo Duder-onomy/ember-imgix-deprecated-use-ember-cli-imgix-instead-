@@ -81,19 +81,20 @@ test('it respects `crop` and `fit` values passed as attributes', function(assert
   assert.equal(url.searchParams.get('fit'), 'min');
 });
 
-test('it respects `auto` values passed as attributes', function(assert) {
-  assert.expect(1);
-  this.render(hbs`<div style='width:1280px;height:200px;'>{{imgix-image path='/users/1.png' auto='compress,enhance'}}</div>`);
-
-  let url = new URL(this.$('img').attr('src'));
-
-  assert.equal(url.searchParams.get('auto'), 'compress,enhance');
-});
-
 test('it allows setting the alt attribute', function(assert) {
 
   this.render(hbs`<div style='width:1280px;height:200px;'>{{imgix-image path='/users/1.png' alt='User 1'}}</div>`);
 
   let alt = this.$('img').attr('alt');
   assert.equal(alt, 'User 1');
+});
+
+test('it allows passing ANY imgix parameter as an option hash', function(assert) {
+  assert.expect(2);
+  this.render(hbs`<div style='width:1280px;height:200px;'>{{imgix-image path='/users/1.png' options=(hash exp=20 invert=true)}}</div>`);
+
+  let url = new URL(this.$('img').attr('src'));
+
+  assert.equal(url.searchParams.get('exp'), 20);
+  assert.equal(url.searchParams.get('invert'), 'true');
 });
