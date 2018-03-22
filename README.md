@@ -66,15 +66,29 @@ You can pass through most of the [params that imgix urls accept](https://docs.im
 Some of the defaults are:
 
 ```javascript
+path: null, // The path to your image
 aspectRatio: null,
-path: null,
 crop: 'faces',
-fit: 'crop', //
+fit: 'crop',
 pixelStep: 10, // round to the nearest pixelStep
-auto: null,
-alt: null, // Alt text of the image
+onLoad: null,
+crossorigin: 'anonymous',
+alt: '', // image alt
+options: {}, // arbitrary imgix options
+auto: null, // https://docs.imgix.com/apis/url/auto
+
 width: null, // override if you want to hardcode a width into the image
 height: null, // override if you want to hardcode a height into the image
+```
+
+If you want to pass in any other arbitrary imgix options, use the hash helper
+```hbs
+{{imgix-image
+  path='/users/1.png'
+  options=(hash
+    invert=true
+  )
+}}
 ```
 
 This element also exposes an `onLoad` action which you can hook into to know when the image has loaded:
