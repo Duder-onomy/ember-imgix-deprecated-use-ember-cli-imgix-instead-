@@ -112,14 +112,11 @@ export default Component.extend(ResizeAware, {
       merge(theseOptions, get(this, '_debugParams'));
     }
 
-    // For some reason using attributeBindings to sync with this computed property is throwing massive errors
-    // in fastboot / engine land.
-    // this.element.src = get(this, '_client').buildURL(get(this, '_pathAsUrl.pathname'), theseOptions);
     return get(this, '_client').buildURL(get(this, '_pathAsUrl.pathname'), theseOptions);
   }),
 
   _handleImageLoad(event) {
-    debounce(this, () => tryInvoke(this, 'onLoad', [event]), 500);
+    debounce(this, () => !get(this, 'isDestroyed') && tryInvoke(this, 'onLoad', [event]), 500);
   },
 
   _debugParams: computed('_width', '_height', '_dpr', function () {

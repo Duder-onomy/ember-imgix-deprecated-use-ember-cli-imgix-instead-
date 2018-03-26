@@ -2202,12 +2202,12 @@ ember-qunit@^3.3.1:
     ember-cli-test-loader "^2.2.0"
     qunit "^2.5.0"
 
-ember-resize-aware@Duder-onomy/ember-resize-aware#ember-singularity-with-soft-unregister:
-  version "1.0.0"
-  resolved "https://codeload.github.com/Duder-onomy/ember-resize-aware/tar.gz/5977d70b5bbabadd99931cc64f6bd3dc2bef57dc"
+ember-resize-aware@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/ember-resize-aware/-/ember-resize-aware-1.0.2.tgz#7c6a5519b4b2055f30cbd2652d2e6a53b67f55b7"
   dependencies:
     ember-cli-babel "^6.6.0"
-    ember-singularity trentmwillis/ember-singularity#master
+    ember-singularity "^1.2.1"
 
 ember-resolver@^4.0.0:
   version "4.5.0"
@@ -2231,9 +2231,9 @@ ember-router-generator@^1.2.3:
   dependencies:
     recast "^0.11.3"
 
-ember-singularity@trentmwillis/ember-singularity#master:
-  version "1.2.0"
-  resolved "https://codeload.github.com/trentmwillis/ember-singularity/tar.gz/dc71ca4960baf3feeca5e4783ad444c33e0f3bc3"
+ember-singularity@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/ember-singularity/-/ember-singularity-1.2.1.tgz#16ae0b88add7ccb21b9c1638329f94c6a702c17e"
   dependencies:
     ember-cli-babel "^6.6.0"
 
