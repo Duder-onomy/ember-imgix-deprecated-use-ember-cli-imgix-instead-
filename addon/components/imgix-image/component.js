@@ -60,9 +60,11 @@ export default Component.extend(ResizeAware, {
   didUpdateAttrs(...args) {
     this._super(...args);
 
-    this.didResize(
-      get(this, 'width') || get(this, '_width') || this.element.clientWidth || this.element.parentElement.clientWidth,
-      get(this, 'height') || get(this, '_height') || this.element.clientHeight || this.element.parentElement.clientHeight);
+    if (typeof FastBoot === 'undefined') {
+      this.didResize(
+        get(this, 'width') || get(this, '_width') || this.element.clientWidth || this.element.parentElement.clientWidth,
+        get(this, 'height') || get(this, '_height') || this.element.clientHeight || this.element.parentElement.clientHeight);
+    }
   },
 
   willDestroyElement(...args) {
