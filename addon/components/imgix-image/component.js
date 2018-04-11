@@ -9,7 +9,6 @@ import ImgixClient from 'imgix-core-js';
 import { debounce } from '@ember/runloop';
 
 export default Component.extend(ResizeAware, {
-  layout: null,
   tagName: 'img',
   attributeBindings: ['src', 'crossorigin', 'alt'],
 
