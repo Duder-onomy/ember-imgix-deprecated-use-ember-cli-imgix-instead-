@@ -18,6 +18,7 @@ export default Component.extend(ResizeAware, {
   fit: 'crop',
   pixelStep: 1,
   onLoad: null,
+  onError: null,
   crossorigin: 'anonymous',
   alt: '', // image alt
   options: {}, // arbitrary imgix options
@@ -49,6 +50,11 @@ export default Component.extend(ResizeAware, {
     if (get(this, 'onLoad')) {
       this._handleImageLoad = this._handleImageLoad.bind(this);
       this.element.addEventListener('load', this._handleImageLoad);
+    }
+
+    if (get(this, 'onError')) {
+      this._handleImageError = this._handleImageError.bind(this);
+      this.element.addEventListener('error', this._handleImageError);
     }
 
     this.didResize(
@@ -116,6 +122,10 @@ export default Component.extend(ResizeAware, {
 
   _handleImageLoad(event) {
     debounce(this, () => !get(this, 'isDestroyed') && tryInvoke(this, 'onLoad', [event]), 500);
+  },
+
+  _handleImageError(event) {
+    debounce(this, () => !get(this, 'isDestroyed') && tryInvoke(this, 'onError', [event]), 500);
   },
 
   _debugParams: computed('_width', '_height', '_dpr', function () {
