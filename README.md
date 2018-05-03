@@ -72,6 +72,7 @@ crop: 'faces',
 fit: 'crop',
 pixelStep: 10, // round to the nearest pixelStep
 onLoad: null,
+onError: null,
 crossorigin: 'anonymous',
 alt: '', // image alt
 options: {}, // arbitrary imgix options
@@ -91,12 +92,13 @@ If you want to pass in any other arbitrary imgix options, use the hash helper
 }}
 ```
 
-This element also exposes an `onLoad` action which you can hook into to know when the image has loaded:
+This element also exposes `onLoad` and `onError` actions which you can hook into to know when the image has loaded or failed to load:
 
 ```hbs
 {{imgix-image
   path='/users/1.png'
   onLoad=(action 'handleImageLoad')
+  onError=(action 'handleImageError')
 }}
 ```
 
