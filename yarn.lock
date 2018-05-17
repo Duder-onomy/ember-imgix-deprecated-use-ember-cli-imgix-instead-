@@ -2414,7 +2414,7 @@ ember-try-config@^3.0.0:
     rsvp "^4.8.1"
     semver "^5.5.0"
 
-ember-try@^1.0.0-beta.2:
+ember-try@^1.0.0-beta.3:
   version "1.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/ember-try/-/ember-try-1.0.0-beta.3.tgz#04da09ba2d57f0fe3a7174acff0dc1add2760855"
   dependencies:
@@ -3904,7 +3904,11 @@ jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
-js-base64@2.4.3, js-base64@^2.1.9:
+js-base64@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.4.tgz#1300ffc679d0d106c7318da903636d687d8e222a"
+
+js-base64@^2.1.9:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.3.tgz#2e545ec2b0f2957f41356510205214e98fad6582"
 
