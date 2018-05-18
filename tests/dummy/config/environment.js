@@ -15,6 +15,10 @@ module.exports = function(environment) {
       }
     },
 
+    googleFonts: [
+      'Open+Sans:300,400,700',
+    ],
+
     APP: {
       imgix: {
         source: 'assets.imgix.net',
