@@ -77,6 +77,10 @@ export default Component.extend(ResizeAware, {
       this.element.removeEventListener('load', this._handleImageLoad);
     }
 
+    if (get(this, 'onError') && typeof FastBoot === 'undefined') {
+      this.element.removeEventListener('error', this._handleImageError);
+    }
+
     this._super(...args);
   },
 
