@@ -10,6 +10,7 @@ import { debounce } from '@ember/runloop';
 
 export default Component.extend(ResizeAware, {
   tagName: 'img',
+  classNames: 'imgix-image',
   attributeBindings: ['src', 'crossorigin', 'alt'],
 
   path: null, // The path to your image
