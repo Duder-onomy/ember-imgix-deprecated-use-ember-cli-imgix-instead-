@@ -1,5 +1,8 @@
 # ember-imgix
 
+
+# THIS LIB IS DEPRECATED, use [ember-cli-imgix](https://github.com/imgix/ember-cli-imgix) instead
+
 [![Greenkeeper badge](https://badges.greenkeeper.io/Duder-onomy/ember-imgix.svg)](https://greenkeeper.io/)
 
 [![Build Status](https://travis-ci.org/Duder-onomy/ember-imgix.svg?branch=master)](https://travis-ci.org/Duder-onomy/ember-imgix)
